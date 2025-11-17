@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const { createUsersTable } = require("./models/User");
 const { createLeavesTable } = require("./models/Leave");
+const authRoutes = require("./routes/authRoutes");
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,8 @@ async function initDB() {
     console.error("❌ Database initialization error:", error);
   }
 }
+
+app.use("/api/auth", authRoutes);
 
 initDB().then(() => {
   app.listen(PORT, () => {
