@@ -4,15 +4,16 @@ const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { createUsersTable } = require("./models/User");
+const { createLeavesTable } = require("./models/Leave");
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
-console.log(PORT);
 
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cors());
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 async function initDB() {
   try {
     await createUsersTable();
+    await createLeavesTable();
     console.log("✅ Database initialized successfully");
   } catch (error) {
     console.error("❌ Database initialization error:", error);
