@@ -13,13 +13,16 @@ const signUp = async (req, res) => {
       res.status(400).json({ message: "All fields are required" });
       return;
     }
-    // check if user already exists
-    const user = await pool.query(
+
+    // pool.query always returns an array of rows, even if there’s only one row
+
+    const users = await pool.query(
       "SELECT * FROM users WHERE username = $1 OR email = $2 LIMIT 1",
       [username, email]
     );
 
-    if (user.rows.length > 0) {
+    // check if user already exists
+    if (users.rows.length > 0) {
       res.status(409).json({ message: "Username or email already exists" });
       return;
     }
@@ -50,7 +53,48 @@ const signUp = async (req, res) => {
 };
 
 //! sign in
+const signIn = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const users = await pool.query(
+      "SELECT * FROM users WHERE username = $1 LIMIT 1",
+      [username]
+    );
+
+    const user = users.rows[0];
+
+    // check if user exists
+    if (!user) {
+      res.status(401).json({ message: "User not found!" });
+      return;
+    }
+
+    //Compare passwords
+    const match = await bcrypt.compare(password, user.password);
+
+    // If password matches , generate JWT
+    if (match) {
+      const payload = { id: user.id, username: user.username };
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      // return user info
+      const userData = {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      };
+      res.status(200).json({ token, user: userData });
+    } else {
+      res.status(401).json({ message: "Wrong password" });
+      return;
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
 
 module.exports = {
   signUp,
+  signIn,
 };

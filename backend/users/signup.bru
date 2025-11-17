@@ -10,11 +10,16 @@ post {
   auth: none
 }
 
+headers {
+  Content-Type:  application/json
+}
+
 body:json {
   {
-      "username": "waluigi",
+      "username": "luigi",
       "password": "123456",
       "confirmPassword":  "123456",
-      "email": "waluigi@example.com"
+      "email": "luigi@example.com",
+      "role": "manager"
   }
 }
