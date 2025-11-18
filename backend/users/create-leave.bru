@@ -1,0 +1,25 @@
+meta {
+  name: create-leave
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/employee/leaves
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJ3YWx1aWdpIiwicm9sZSI6ImVtcGxveWVlIiwiaWF0IjoxNzYzNDYwNjc4fQ.-v08ZJrEXYX4Xm0FWiJ3Z8NHi1aXWd1iQu7k52G08FU
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "leave_type": "annual",
+    "start_date": "2025-03-10",
+    "end_date": "2025-03-12",
+    "reason": "Family vacation"
+  }
+}

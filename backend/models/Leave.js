@@ -8,7 +8,7 @@ async function createLeavesTable() {
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     leave_type VARCHAR(50) NOT NULL CHECK (leave_type IN ('annual', 'sick')),  
-    reason TEXT,                 
+    reason TEXT NOT NULL,                 
     status VARCHAR(50) NOT NULL CHECK (status IN ('pending', 'approved', 'rejected')),                        
     decided_by INTEGER REFERENCES users(id),             
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

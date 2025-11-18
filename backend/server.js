@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const { createUsersTable } = require("./models/User");
 const { createLeavesTable } = require("./models/Leave");
 const authRoutes = require("./routes/authRoutes");
+const employeeRoutes = require("./routes/employeeRoutes");
 
 dotenv.config();
 const app = express();
@@ -32,6 +33,7 @@ async function initDB() {
 }
 
 app.use("/api/auth", authRoutes);
+app.use("/api/employee", employeeRoutes);
 
 initDB().then(() => {
   app.listen(PORT, () => {

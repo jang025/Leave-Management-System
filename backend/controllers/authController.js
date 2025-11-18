@@ -74,7 +74,7 @@ const signIn = async (req, res) => {
 
     // If password matches , generate JWT
     if (match) {
-      const payload = { id: user.id, username: user.username };
+      const payload = { id: user.id, username: user.username, role: user.role };
       const token = jwt.sign(payload, process.env.JWT_SECRET);
       // return user info
       const userData = {
