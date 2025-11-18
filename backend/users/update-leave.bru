@@ -1,11 +1,11 @@
 meta {
-  name: get-all-leaves
+  name: update-leave
   type: http
   seq: 1
 }
 
-get {
-  url: http://localhost:3000/api/employee/leaves
+patch {
+  url: http:localhost:3000/api/employee/leaves/1
   body: none
   auth: none
 }

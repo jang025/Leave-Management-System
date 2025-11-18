@@ -108,7 +108,45 @@ const getAllLeaves = async (req, res) => {
 };
 
 //! update leave
+const updateLeave = async (req, res) => {
+  try {
+    const leaveId = req.params.id;
+    const userId = req.user.id;
+
+    const result = await pool.query(
+      `SELECT * FROM leaves WHERE id = $1 AND user_id = $2`,
+      [leaveId, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ msg: "Leave request not found" });
+    }
+
+    const leave = result.rows[0];
+
+    if (leave.status !== "pending") {
+      return res
+        .status(400)
+        .json({ msg: "Only pending leave requests can be canceled" });
+    }
+
+    const updateResult = await pool.query(
+      `UPDATE leaves SET status = 'canceled', updated_at = CURRENT_TIMESTAMP
+       WHERE id = $1 
+       RETURNING *`,
+      [leaveId]
+    );
+
+    res.status(200).json({
+      msg: "Leave request canceled successfully",
+      leave: updateResult.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
 
 //! delete leave
 
-module.exports = { createLeave, getAllLeaves };
+module.exports = { createLeave, getAllLeaves, updateLeave };

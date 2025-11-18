@@ -9,8 +9,8 @@ async function createUsersTable() {
       password VARCHAR(255) NOT NULL,
       role TEXT CHECK (role IN ('manager', 'employee')),  
       annual_leave_capacity INTEGER NOT NULL,
-      sick_leave_capacity INTEGER NOT NULL
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      sick_leave_capacity INTEGER NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `);
   console.log("✅ Users table ready");
