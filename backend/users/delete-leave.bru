@@ -1,0 +1,16 @@
+meta {
+  name: delete-leave
+  type: http
+  seq: 1
+}
+
+delete {
+  url: http:localhost:3000/api/employee/leaves/5
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJtYXJpbyIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc2MzQ2NDUyM30.gc4IwNhnPswSuglQFWAPRA36m2EFiHoVBH-nynFjrDI
+}

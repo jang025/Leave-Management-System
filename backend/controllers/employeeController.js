@@ -148,5 +148,37 @@ const updateLeave = async (req, res) => {
 };
 
 //! delete leave
+const deleteLeave = async (req, res) => {
+  try {
+    const leaveId = req.params.id;
+    const userId = req.user.id;
 
-module.exports = { createLeave, getAllLeaves, updateLeave };
+    const result = await pool.query(
+      `SELECT * FROM leaves WHERE id = $1 AND user_id = $2`,
+      [leaveId, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ msg: "Leave request not found" });
+    }
+
+    const leave = result.rows[0];
+
+    if (leave.status !== "approved") {
+      return res
+        .status(400)
+        .json({ msg: "Only approved leave requests can be deleted" });
+    }
+
+    await pool.query(`DELETE FROM leaves WHERE id = $1`, [leaveId]);
+
+    res.status(200).json({
+      msg: "Approved leave request deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
+
+module.exports = { createLeave, getAllLeaves, updateLeave, deleteLeave };
