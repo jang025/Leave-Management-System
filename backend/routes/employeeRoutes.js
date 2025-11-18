@@ -1,9 +1,13 @@
 const express = require("express");
-const { createLeave } = require("../controllers/employeeController");
+const {
+  createLeave,
+  getAllLeaves,
+} = require("../controllers/employeeController");
 const { auth } = require("../middleware/auth");
 const { roleCheck } = require("../middleware/roleCheck");
 const router = express.Router();
 
-router.post("/leaves", auth, roleCheck("employee"), createLeave);
+router.post("/leaves/new", auth, roleCheck("employee"), createLeave);
+router.get("/leaves", auth, roleCheck("employee"), getAllLeaves);
 
 module.exports = router;

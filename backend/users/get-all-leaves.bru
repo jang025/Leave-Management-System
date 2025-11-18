@@ -1,0 +1,16 @@
+meta {
+  name: get-all-leaves
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/api/employee/leaves
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJ3YWx1aWdpIiwicm9sZSI6ImVtcGxveWVlIiwiaWF0IjoxNzYzNDYyMTI3fQ.n7MTbiWC-Y38Niq5floOsbp8IxMGJB4hVZ8Y4VfzkgQ
+}

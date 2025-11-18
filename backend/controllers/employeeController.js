@@ -88,9 +88,27 @@ const createLeave = async (req, res) => {
 };
 
 //! get all leaves
+const getAllLeaves = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const leave = await pool.query(
+      `SELECT * 
+       FROM leaves 
+       WHERE user_id = $1 
+       ORDER BY created_at DESC`,
+      [userId]
+    );
+
+    res.status(200).json(leave.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
 
 //! update leave
 
 //! delete leave
 
-module.exports = { createLeave };
+module.exports = { createLeave, getAllLeaves };
