@@ -1,6 +1,8 @@
 const CreateLeaveForm = () => {
+  //! submit new leave request
+  const handleSubmit = () => {};
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         Leave Type:
         <select>

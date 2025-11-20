@@ -1,4 +1,8 @@
 const LeaveDetailsCard = () => {
+  //! approve pending leave - take note when a pending leave is approved , need to decrement leave balance by one
+  const handleApprove = () => {};
+  //! reject pending leave
+  const handleReject = () => {};
   return (
     <div>
       <p>
@@ -14,8 +18,8 @@ const LeaveDetailsCard = () => {
         <strong>Reason:</strong> Family Trip
       </p>
 
-      <button>Approve</button>
-      <button>Reject</button>
+      <button onClick={handleApprove}>Approve</button>
+      <button onClick={handleReject}>Reject</button>
     </div>
   );
 };
