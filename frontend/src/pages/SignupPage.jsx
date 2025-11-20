@@ -6,6 +6,7 @@ const SignupPage = () => {
     username: "",
     password: "",
     confirmPassword: "",
+    role: "",
     email: "",
   });
 
