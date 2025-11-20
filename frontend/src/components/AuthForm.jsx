@@ -7,6 +7,7 @@ function AuthForm({
   redirectLink,
   handleSubmit,
   handleChange,
+  user,
 }) {
   return (
     <div>
@@ -18,7 +19,7 @@ function AuthForm({
           id="username"
           name="username"
           placeholder="Enter your username"
-          value="username"
+          value={user.username}
           onChange={handleChange}
           required
         />
@@ -28,7 +29,7 @@ function AuthForm({
           id="password"
           name="password"
           placeholder="Enter your password"
-          value="password"
+          value={user.password}
           onChange={handleChange}
           required
         />
@@ -40,7 +41,7 @@ function AuthForm({
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Confirm Password"
-              value="confirmPassword"
+              value={user.confirmPassword}
               onChange={handleChange}
               required
             />
@@ -50,7 +51,7 @@ function AuthForm({
               id="email"
               name="email"
               placeholder="Enter your email"
-              value="email"
+              value={user.email}
               onChange={handleChange}
               required
             />

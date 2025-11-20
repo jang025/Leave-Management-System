@@ -27,6 +27,7 @@ const SignupPage = () => {
       redirectLink="/signin"
       handleSubmit={handleSubmit}
       handleChange={handleChange}
+      user={user}
     />
   );
 };
