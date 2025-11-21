@@ -35,7 +35,7 @@ const ManagerDashboardPage = () => {
     <div>
       <h1>Manager Dashboard</h1>
       <h2>Pending Leave Requests</h2>
-      //! Nav link for each pending leave request to leave details page
+      {/* Nav link for each pending leave request to leave details page */}
       {leaves.length === 0 ? (
         <p>No pending leave requests.</p>
       ) : (

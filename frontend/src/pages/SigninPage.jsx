@@ -25,6 +25,8 @@ const SigninPage = () => {
       }
       //! only store token in local storage for security purposes
       localStorage.setItem("token", response.token);
+      //! storing used id as i need it for the routes
+      localStorage.setItem("userId", response.user.id);
       //! redirects user to employee / manager dashboard page
       navigate(
         response.user.role === "manager"

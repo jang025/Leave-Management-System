@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import LeaveBalanceCard from "../components/LeaveBalanceCard";
-import { show } from "../services/employeeService";
+import { remove, show, update } from "../services/employeeService";
 
 const EmployeeDashboardPage = () => {
   const navigate = useNavigate();
   const [leaves, setLeaves] = useState([]);
+  const token = localStorage.getItem("token");
+  const employeeId = localStorage.getItem("userId");
   useEffect(() => {
     //   //! fetch all leaves
     const fetchLeaves = async () => {
-      const token = localStorage.getItem("token");
       if (!token) {
         navigate("/signin");
         return;
@@ -23,14 +24,36 @@ const EmployeeDashboardPage = () => {
       }
     };
     fetchLeaves();
-  }, [navigate]);
+  }, [navigate, token]);
 
   //! cancel pending leave
-  const handleCancel = () => {};
+  const handleCancel = async (leaveId) => {
+    try {
+      const updatedLeave = await update(leaveId, token);
+      setLeaves((prevLeaves) =>
+        prevLeaves.filter((leave) => leave.id !== updatedLeave.leave.id)
+      );
+      console.log(updatedLeave);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   //! delete approved leave
-  const handleDelete = () => {};
+  const handleDelete = async (leaveId) => {
+    try {
+      const deletedLeave = await remove(leaveId, token);
+      setLeaves((prevLeaves) =>
+        prevLeaves.filter((leave) => leave.id !== leaveId)
+      );
+      console.log(deletedLeave);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   //! link to create leave page
-  const handleCreate = () => {};
+  const handleCreate = () => {
+    navigate(`/employee/${employeeId}/new`);
+  };
 
   //! sign out user
   const handleSignOut = () => {
