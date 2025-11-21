@@ -1,0 +1,16 @@
+meta {
+  name: leave-balance
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/api/employee/leaves/balance
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJiYWJ5bWFyaW8iLCJyb2xlIjoiZW1wbG95ZWUiLCJpYXQiOjE3NjM2OTY1NTh9.CCdj712iDG9X6nH0CNrjrIDh6xjPYbjbtsqo4QsSVrs
+}

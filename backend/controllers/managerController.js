@@ -21,7 +21,7 @@ const getPendingLeaves = async (req, res) => {
 
 const approveLeave = async (req, res) => {
   try {
-    const leaveId = req.params.id;
+    const leaveId = req.params.leaveId;
 
     const result = await pool.query("SELECT * FROM leaves WHERE id = $1", [
       leaveId,
@@ -51,7 +51,7 @@ const approveLeave = async (req, res) => {
 
 const rejectLeave = async (req, res) => {
   try {
-    const leaveId = req.params.id;
+    const leaveId = req.params.leaveId;
 
     const result = await pool.query("SELECT * FROM leaves WHERE id = $1", [
       leaveId,

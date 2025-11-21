@@ -18,10 +18,6 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
 // Initialise database
 async function initDB() {
   try {

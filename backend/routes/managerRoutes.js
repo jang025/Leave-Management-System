@@ -9,7 +9,17 @@ const { roleCheck } = require("../middleware/roleCheck");
 const router = express.Router();
 
 router.get("/leaves", auth, roleCheck("manager"), getPendingLeaves);
-router.patch("/leaves/:id/approve", auth, roleCheck("manager"), approveLeave);
-router.patch("/leaves/:id/reject", auth, roleCheck("manager"), rejectLeave);
+router.patch(
+  "/leaves/:leaveId/approve",
+  auth,
+  roleCheck("manager"),
+  approveLeave
+);
+router.patch(
+  "/leaves/:leaveId/reject",
+  auth,
+  roleCheck("manager"),
+  rejectLeave
+);
 
 module.exports = router;

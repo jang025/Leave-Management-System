@@ -110,7 +110,7 @@ const getAllLeaves = async (req, res) => {
 //! update leave
 const updateLeave = async (req, res) => {
   try {
-    const leaveId = req.params.id;
+    const leaveId = req.params.leaveId;
     const userId = req.user.id;
 
     const result = await pool.query(
@@ -150,7 +150,7 @@ const updateLeave = async (req, res) => {
 //! delete leave
 const deleteLeave = async (req, res) => {
   try {
-    const leaveId = req.params.id;
+    const leaveId = req.params.leaveId;
     const userId = req.user.id;
 
     const result = await pool.query(
@@ -181,4 +181,60 @@ const deleteLeave = async (req, res) => {
   }
 };
 
-module.exports = { createLeave, getAllLeaves, updateLeave, deleteLeave };
+//! get leave balance
+const getLeaveBalance = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Fetch user's leave capacities
+    const userResult = await pool.query(
+      `SELECT annual_leave_capacity, sick_leave_capacity 
+       FROM users WHERE id = $1`,
+      [userId]
+    );
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const { annual_leave_capacity, sick_leave_capacity } = userResult.rows[0];
+
+    // Count all the approved annual leaves
+    const approvedAnnual = await pool.query(
+      `SELECT COUNT(*)   FROM leaves 
+       WHERE user_id = $1 AND leave_type = 'annual' AND status = 'approved'`,
+      [userId]
+    );
+
+    // Count all the approved sick leaves
+    const approvedSick = await pool.query(
+      `SELECT COUNT(*)   FROM leaves 
+       WHERE user_id = $1 AND leave_type = 'sick' AND status = 'approved'`,
+      [userId]
+    );
+
+    // compute the remaining annual leave
+    const annualRemaining =
+      annual_leave_capacity - Number(approvedAnnual.rows[0].count);
+
+    // compute the remaining sick leave
+    const sickRemaining =
+      sick_leave_capacity - Number(approvedSick.rows[0].count);
+
+    res.status(200).json({
+      annual_remaining: annualRemaining,
+      sick_remaining: sickRemaining,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
+
+module.exports = {
+  createLeave,
+  getAllLeaves,
+  updateLeave,
+  deleteLeave,
+  getLeaveBalance,
+};
