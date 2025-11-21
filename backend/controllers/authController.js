@@ -39,13 +39,27 @@ const signUp = async (req, res) => {
     // create a new user
     const result = await pool.query(
       `INSERT INTO users (username, email, password, role, annual_leave_capacity, sick_leave_capacity)
-       VALUES ($1, $2, $3, $4, 14, 14)
+       VALUES ($1, $2, $3, $4, 14, 7)
        RETURNING id, username, email, role, annual_leave_capacity, sick_leave_capacity, created_at`,
       [username, email, hashedPassword, role]
     );
 
     const newUser = result.rows[0];
-    res.status(201).json(newUser);
+    // generate token for new user
+    const payload = {
+      id: newUser.id,
+      username: newUser.username,
+      role: newUser.role,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
+    const newUserData = {
+      id: newUser.id,
+      username: newUser.username,
+      email: newUser.email,
+      role: newUser.role,
+    };
+
+    res.status(201).json({ token, user: newUserData });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error });

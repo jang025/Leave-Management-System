@@ -2,15 +2,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const ManagerDashboardPage = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
-    if (!token || !role) {
-      navigate("/signin");
-    }
-    //! fetch all pending leaves
-  }, [navigate]);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     navigate("/signin");
+  //   }
+  //   //! fetch all pending leaves
+  // }, [navigate]);
 
   //! sign out user
   const handleSignOut = () => {};

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import AuthForm from "../components/AuthForm";
+import { useNavigate } from "react-router";
+import { signup } from "../services/authService";
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -17,7 +20,24 @@ const SignupPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("sign up successful");
+    try {
+      const response = await signup(user);
+      console.log(response);
+      if (!response.token) {
+        throw new Error("Signup failed");
+      }
+
+      //! only store token in local storage for security purposes
+      localStorage.setItem("token", response.token);
+      //! redirects user to employee / manager dashboard page
+      navigate(
+        response.user.role === "manager"
+          ? `/manager/${response.user.id}`
+          : `/employee/${response.user.id}`
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (

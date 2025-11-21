@@ -3,15 +3,14 @@ import LeaveBalanceCard from "../components/LeaveBalanceCard";
 import { useEffect } from "react";
 
 const EmployeeDashboardPage = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
-    if (!token || !role) {
-      navigate("/signin");
-    }
-    //! fetch all leaves
-  }, [navigate]);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     navigate("/signin");
+  //   }
+  //   //! fetch all leaves
+  // }, [navigate]);
 
   //! cancel pending leave
   const handleCancel = () => {};

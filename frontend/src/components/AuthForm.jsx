@@ -68,6 +68,7 @@ function AuthForm({
               onChange={handleChange}
               required
             >
+              <option value="">Select Role</option>
               <option value="employee">Employee</option>
               <option value="manager">Manager</option>
             </select>
