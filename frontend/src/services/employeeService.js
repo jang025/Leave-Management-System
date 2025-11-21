@@ -25,7 +25,7 @@ export const create = async (leave, token) => {
 
 //! get all leaves
 export const show = async (token) => {
-  const url = `${baseUrl}/api/employees/leaves`;
+  const url = `${baseUrl}/api/employee/leaves`;
   try {
     const response = await fetch(url, {
       method: "GET",

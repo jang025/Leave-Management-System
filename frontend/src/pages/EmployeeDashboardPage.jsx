@@ -1,16 +1,29 @@
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LeaveBalanceCard from "../components/LeaveBalanceCard";
+import { show } from "../services/employeeService";
 
 const EmployeeDashboardPage = () => {
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     navigate("/signin");
-  //   }
-  //   //! fetch all leaves
-  // }, [navigate]);
+  const [leaves, setLeaves] = useState([]);
+  useEffect(() => {
+    //   //! fetch all leaves
+    const fetchLeaves = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/signin");
+        return;
+      }
+      try {
+        const data = await show(token);
+        console.log(data);
+        setLeaves(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchLeaves();
+  }, [navigate]);
 
   //! cancel pending leave
   const handleCancel = () => {};
@@ -18,6 +31,7 @@ const EmployeeDashboardPage = () => {
   const handleDelete = () => {};
   //! link to create leave page
   const handleCreate = () => {};
+
   //! sign out user
   const handleSignOut = () => {
     localStorage.removeItem("token");
@@ -31,15 +45,23 @@ const EmployeeDashboardPage = () => {
       <LeaveBalanceCard />
 
       <h2>Your Leave Requests</h2>
-      <ul>
-        <li>
-          Annual Leave — Pending <button onClick={handleCancel}>Cancel</button>
-        </li>
-        <li>
-          Sick Leave — Approved <button onClick={handleDelete}>Delete</button>
-        </li>
-        <li>Sick Leave — Rejected</li>
-      </ul>
+      {leaves.length === 0 ? (
+        <p>No leave requests yet.</p>
+      ) : (
+        <ul>
+          {leaves.map((leave) => (
+            <li key={leave.id}>
+              {leave.leave_type} : {leave.reason} — {leave.status}
+              {leave.status === "pending" && (
+                <button onClick={() => handleCancel(leave.id)}>Cancel</button>
+              )}
+              {leave.status === "approved" && (
+                <button onClick={() => handleDelete(leave.id)}>Delete</button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
 
       <button onClick={handleCreate}>Create New Leave Request</button>
       <button onClick={handleSignOut}>Signout</button>

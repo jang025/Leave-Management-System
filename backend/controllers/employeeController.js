@@ -95,7 +95,7 @@ const getAllLeaves = async (req, res) => {
     const leave = await pool.query(
       `SELECT * 
        FROM leaves 
-       WHERE user_id = $1 
+       WHERE user_id = $1 AND status != 'canceled'
        ORDER BY created_at DESC`,
       [userId]
     );
