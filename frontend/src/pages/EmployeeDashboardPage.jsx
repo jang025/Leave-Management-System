@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import LeaveBalanceCard from "../components/LeaveBalanceCard";
 import { useEffect } from "react";
+import LeaveBalanceCard from "../components/LeaveBalanceCard";
 
 const EmployeeDashboardPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
   //   if (!token) {
@@ -14,12 +14,15 @@ const EmployeeDashboardPage = () => {
 
   //! cancel pending leave
   const handleCancel = () => {};
-  //! delete approved leave (need to increment leave request by one)
+  //! delete approved leave
   const handleDelete = () => {};
   //! link to create leave page
   const handleCreate = () => {};
   //! sign out user
-  const handleSignOut = () => {};
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+  };
 
   return (
     <div>

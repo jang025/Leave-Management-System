@@ -1,5 +1,5 @@
 const LeaveDetailsCard = () => {
-  //! approve pending leave - take note when a pending leave is approved , need to decrement leave balance by one
+  //! approve pending leave
   const handleApprove = () => {};
   //! reject pending leave
   const handleReject = () => {};

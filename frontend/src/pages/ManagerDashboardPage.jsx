@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const ManagerDashboardPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
   //   if (!token) {
@@ -12,7 +12,10 @@ const ManagerDashboardPage = () => {
   // }, [navigate]);
 
   //! sign out user
-  const handleSignOut = () => {};
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+  };
 
   return (
     <div>
