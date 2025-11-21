@@ -2,7 +2,7 @@ const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 //! create leave
 export const create = async (leave, token) => {
-  const url = `${baseUrl}/api/employees/leaves/new`;
+  const url = `${baseUrl}/api/employee/leaves/new`;
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -47,7 +47,7 @@ export const show = async (token) => {
 
 //! update leave
 export const update = async (leaveId, token) => {
-  const url = `${baseUrl}/api/employees/leaves/${leaveId}`;
+  const url = `${baseUrl}/api/employee/leaves/${leaveId}`;
   try {
     const response = await fetch(url, {
       method: "PATCH",
@@ -69,7 +69,7 @@ export const update = async (leaveId, token) => {
 
 //! delete leave
 export const remove = async (leaveId, token) => {
-  const url = `${baseUrl}/api/employees/leaves/${leaveId}`;
+  const url = `${baseUrl}/api/employee/leaves/${leaveId}`;
   try {
     const response = await fetch(url, {
       method: "DELETE",
@@ -90,7 +90,7 @@ export const remove = async (leaveId, token) => {
 
 //! get all leave balances
 export const getLeaveBalance = async (token) => {
-  const url = `${baseUrl}/api/employees/leaves/balance`;
+  const url = `${baseUrl}/api/employee/leaves/balance`;
   try {
     const response = await fetch(url, {
       method: "GET",
