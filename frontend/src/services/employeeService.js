@@ -87,3 +87,24 @@ export const remove = async (leaveId, token) => {
     console.error(error.message);
   }
 };
+
+//! get all leave balances
+export const getLeaveBalance = async (token) => {
+  const url = `${baseUrl}/api/employees/leaves/balance`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
