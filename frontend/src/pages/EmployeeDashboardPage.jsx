@@ -1,29 +1,40 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import LeaveBalanceCard from "../components/LeaveBalanceCard";
-import { remove, show, update } from "../services/employeeService";
+import {
+  getLeaveBalance,
+  remove,
+  show,
+  update,
+} from "../services/employeeService";
 
 const EmployeeDashboardPage = () => {
   const navigate = useNavigate();
   const [leaves, setLeaves] = useState([]);
+  const [balance, setBalance] = useState({ annual: 0, sick: 0 });
   const token = localStorage.getItem("token");
   const employeeId = localStorage.getItem("userId");
   useEffect(() => {
     //   //! fetch all leaves
-    const fetchLeaves = async () => {
+    const fetchData = async () => {
       if (!token) {
         navigate("/signin");
         return;
       }
       try {
-        const data = await show(token);
-        console.log(data);
-        setLeaves(data);
+        const leaveData = await show(token);
+        setLeaves(leaveData);
+
+        const balanceData = await getLeaveBalance(token);
+        setBalance({
+          annual: balanceData.annual_remaining,
+          sick: balanceData.sick_remaining,
+        });
       } catch (error) {
         console.error(error);
       }
     };
-    fetchLeaves();
+    fetchData();
   }, [navigate, token]);
 
   //! cancel pending leave
@@ -33,7 +44,6 @@ const EmployeeDashboardPage = () => {
       setLeaves((prevLeaves) =>
         prevLeaves.filter((leave) => leave.id !== updatedLeave.leave.id)
       );
-      console.log(updatedLeave);
     } catch (error) {
       console.error(error);
     }
@@ -46,6 +56,11 @@ const EmployeeDashboardPage = () => {
         prevLeaves.filter((leave) => leave.id !== leaveId)
       );
       console.log(deletedLeave);
+      const balanceData = await getLeaveBalance(token);
+      setBalance({
+        annual: balanceData.annual_remaining,
+        sick: balanceData.sick_remaining,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -65,7 +80,7 @@ const EmployeeDashboardPage = () => {
     <div>
       <h1>Employee Dashboard</h1>
 
-      <LeaveBalanceCard />
+      <LeaveBalanceCard balance={balance} />
 
       <h2>Your Leave Requests</h2>
       {leaves.length === 0 ? (

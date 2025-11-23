@@ -1,10 +1,9 @@
-const LeaveBalanceCard = () => {
-  //! get leave balance
+const LeaveBalanceCard = ({ balance }) => {
   return (
     <div>
       <h2>Leave Balance</h2>
-      <p>Annual Leave: 12 days left</p>
-      <p>Sick Leave: 8 days left</p>
+      <p>Annual Leave: {balance.annual}</p>
+      <p>Sick Leave: {balance.sick}</p>
     </div>
   );
 };
