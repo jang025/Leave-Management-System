@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import CreateLeaveForm from "../components/CreateLeaveForm";
 import { useState } from "react";
 import { create } from "../services/employeeService";
+import styles from "./Layout.module.css";
 
 const CreateLeavePage = () => {
   const token = localStorage.getItem("token");
@@ -42,7 +43,7 @@ const CreateLeavePage = () => {
     navigate(-1); // Goes back to the previous page
   };
   return (
-    <div>
+    <div className={styles.pageContainer}>
       <h1>Create Leave Request</h1>
       <CreateLeaveForm
         handleSubmit={handleSubmit}

@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import LeaveDetailsCard from "../components/LeaveDetailsCard";
 import { useEffect, useState } from "react";
 import { approve, reject, showOne } from "../services/managerService";
+import styles from "./Layout.module.css";
 
 const LeaveDetailsPage = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const LeaveDetailsPage = () => {
     navigate(-1); // Goes back to the previous page
   };
   return (
-    <div>
+    <div className={styles.pageContainer}>
       <h1>Leave Details</h1>
       {!leave ? (
         <p>Loading leave details...</p>

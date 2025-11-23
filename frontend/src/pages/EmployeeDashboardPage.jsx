@@ -7,6 +7,8 @@ import {
   show,
   update,
 } from "../services/employeeService";
+import styles from "./Layout.module.css";
+import dayjs from "dayjs";
 
 const EmployeeDashboardPage = () => {
   const navigate = useNavigate();
@@ -78,7 +80,7 @@ const EmployeeDashboardPage = () => {
   };
 
   return (
-    <div>
+    <div className={styles.pageContainer}>
       <h1>Employee Dashboard</h1>
 
       <LeaveBalanceCard balance={balance} />
@@ -90,7 +92,9 @@ const EmployeeDashboardPage = () => {
         <ul>
           {leaves.map((leave) => (
             <li key={leave.id}>
-              {leave.leave_type} : {leave.reason} — {leave.status}
+              {leave.leave_type} : {leave.reason} — {leave.status}{" "}
+              {dayjs(leave.start_date).format("DD MMM YYYY")} to{" "}
+              {dayjs(leave.end_date).format("DD MMM YYYY")}{" "}
               {leave.status === "pending" && (
                 <button onClick={() => handleCancel(leave.id)}>Cancel</button>
               )}

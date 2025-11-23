@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { show } from "../services/managerService";
 import dayjs from "dayjs";
+import styles from "./Layout.module.css";
 
 const ManagerDashboardPage = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const ManagerDashboardPage = () => {
   };
 
   return (
-    <div>
+    <div className={styles.pageContainer}>
       <h1>Manager Dashboard</h1>
       <h2>Pending Leave Requests</h2>
       {/* Nav link for each pending leave request to leave details page */}
