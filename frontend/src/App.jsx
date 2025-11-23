@@ -5,6 +5,7 @@ import EmployeeDashboardPage from "./pages/EmployeeDashboardPage";
 import ManagerDashboardPage from "./pages/ManagerDashboardPage";
 import CreateLeavePage from "./pages/CreateLeavePage";
 import LeaveDetailsPage from "./pages/LeaveDetailsPage";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 const App = () => {
   return (
@@ -12,10 +13,38 @@ const App = () => {
       <Routes>
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/employee/:id" element={<EmployeeDashboardPage />} />
-        <Route path="/employee/:id/new" element={<CreateLeavePage />} />
-        <Route path="/manager/:id" element={<ManagerDashboardPage />} />
-        <Route path="/manager/:id/:leaveId" element={<LeaveDetailsPage />} />
+        <Route
+          path="/employee/:id"
+          element={
+            <ProtectedRoute>
+              <EmployeeDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employee/:id/new"
+          element={
+            <ProtectedRoute>
+              <CreateLeavePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manager/:id"
+          element={
+            <ProtectedRoute>
+              <ManagerDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manager/:id/:leaveId"
+          element={
+            <ProtectedRoute>
+              <LeaveDetailsPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
