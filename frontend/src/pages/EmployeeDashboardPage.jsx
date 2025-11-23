@@ -73,6 +73,7 @@ const EmployeeDashboardPage = () => {
   //! sign out user
   const handleSignOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     navigate("/signin");
   };
 

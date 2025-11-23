@@ -30,6 +30,7 @@ const ManagerDashboardPage = () => {
   //! sign out user
   const handleSignOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     navigate("/signin");
   };
 
