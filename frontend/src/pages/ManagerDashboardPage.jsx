@@ -6,10 +6,12 @@ import dayjs from "dayjs";
 const ManagerDashboardPage = () => {
   const navigate = useNavigate();
   const [leaves, setLeaves] = useState([]);
+  const token = localStorage.getItem("token");
+  const managerId = localStorage.getItem("userId");
+
   useEffect(() => {
     //   //! fetch all pending leaves
     const fetchLeaves = async () => {
-      const token = localStorage.getItem("token");
       if (!token) {
         navigate("/signin");
         return;
@@ -23,7 +25,7 @@ const ManagerDashboardPage = () => {
       }
     };
     fetchLeaves();
-  }, [navigate]);
+  }, [navigate, token]);
 
   //! sign out user
   const handleSignOut = () => {
@@ -42,7 +44,7 @@ const ManagerDashboardPage = () => {
         <ul>
           {leaves.map((leave) => (
             <li key={leave.id}>
-              <NavLink to={`/manager/${leave.id}/details`}>
+              <NavLink to={`/manager/${managerId}/${leave.id}`}>
                 {leave.username} — {leave.leave_type} leave —{" "}
                 {dayjs(leave.start_date).format("DD MMM YYYY")} to{" "}
                 {dayjs(leave.end_date).format("DD MMM YYYY")}

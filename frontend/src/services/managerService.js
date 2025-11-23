@@ -22,6 +22,29 @@ export const show = async (token) => {
   }
 };
 
+//! get a single leave
+export const showOne = async (leaveId, token) => {
+  const url = `${baseUrl}/api/manager/leaves/${leaveId}`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 //! approve leave
 export const approve = async (leaveId, token) => {
   const url = `${baseUrl}/api/manager/leaves/${leaveId}`;

@@ -1,21 +1,20 @@
-const LeaveDetailsCard = () => {
-  //! approve pending leave
-  const handleApprove = () => {};
-  //! reject pending leave
-  const handleReject = () => {};
+import dayjs from "dayjs";
+
+const LeaveDetailsCard = ({ handleApprove, handleReject, leave }) => {
   return (
     <div>
       <p>
-        <strong>Employee:</strong> John Doe
+        <strong>Employee:</strong> {leave.username}
       </p>
       <p>
-        <strong>Leave Type:</strong> Annual Leave
+        <strong>Leave Type:</strong> {leave.leave_type}
       </p>
       <p>
-        <strong>Dates:</strong> Feb 10 - Feb 12
+        <strong>Dates:</strong> {dayjs(leave.start_date).format("DD MMM YYYY")}{" "}
+        - {dayjs(leave.end_date).format("DD MMM YYYY")}
       </p>
       <p>
-        <strong>Reason:</strong> Family Trip
+        <strong>Reason:</strong> {leave.reason}
       </p>
 
       <button onClick={handleApprove}>Approve</button>

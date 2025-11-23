@@ -19,6 +19,30 @@ const getPendingLeaves = async (req, res) => {
   }
 };
 
+const getPendingLeave = async (req, res) => {
+  try {
+    const leaveId = req.params.leaveId;
+
+    const result = await pool.query(
+      `
+      SELECT 
+      l.*,
+      u.username,
+      u.role
+      FROM leaves AS l
+      INNER JOIN users AS u ON l.user_id = u.id
+      WHERE l.id = $1 AND l.status = 'pending'
+    `,
+      [leaveId]
+    );
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
+
 const approveLeave = async (req, res) => {
   try {
     const leaveId = req.params.leaveId;
@@ -79,4 +103,9 @@ const rejectLeave = async (req, res) => {
   }
 };
 
-module.exports = { getPendingLeaves, approveLeave, rejectLeave };
+module.exports = {
+  getPendingLeaves,
+  getPendingLeave,
+  approveLeave,
+  rejectLeave,
+};
