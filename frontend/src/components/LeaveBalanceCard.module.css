@@ -1,0 +1,18 @@
+.card {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+}
+
+h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+p {
+  font-weight: 500;
+  margin: 6px 0;
+}

@@ -1,0 +1,39 @@
+.card {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fefefe;
+}
+
+p {
+  margin: 8px 0;
+}
+
+button {
+  padding: 8px 12px;
+  margin: 5px 5px 0 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button:first-of-type {
+  background-color: oklch(79.2% 0.209 151.711);
+  color: black;
+}
+
+button:first-of-type:hover {
+  background-color: oklch(50.8% 0.118 165.612);
+}
+
+button:last-of-type {
+  background-color: oklch(71.2% 0.194 13.428);
+  color: black;
+}
+
+button:last-of-type:hover {
+  background-color: oklch(51.4% 0.222 16.935);
+}

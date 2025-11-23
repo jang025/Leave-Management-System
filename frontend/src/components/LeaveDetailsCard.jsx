@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
+import styles from "./LeaveDetailsCard.module.css";
 
 const LeaveDetailsCard = ({ handleApprove, handleReject, leave }) => {
   return (
-    <div>
-      <p>
+    <div className={styles.card}>
+      <p className={styles.p}>
         <strong>Employee:</strong> {leave.username}
       </p>
       <p>
@@ -17,8 +18,12 @@ const LeaveDetailsCard = ({ handleApprove, handleReject, leave }) => {
         <strong>Reason:</strong> {leave.reason}
       </p>
 
-      <button onClick={handleApprove}>Approve</button>
-      <button onClick={handleReject}>Reject</button>
+      <button onClick={handleApprove} className={styles.button}>
+        Approve
+      </button>
+      <button onClick={handleReject} className={styles.button}>
+        Reject
+      </button>
     </div>
   );
 };

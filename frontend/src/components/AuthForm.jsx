@@ -1,5 +1,6 @@
 import { useId } from "react";
-import { NavLink } from "react-router";
+import { Link } from "react-router";
+import styles from "./AuthForm.module.css";
 
 function AuthForm({
   title,
@@ -13,9 +14,9 @@ function AuthForm({
   // useId hook is used when multiple forms exist on the same page
   const id = useId();
   return (
-    <div>
-      <h1>{title}</h1>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <h1 className={styles.h1}>{title}</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor={`${id}-username`}>Username: </label>
         <input
           type="text"
@@ -25,6 +26,7 @@ function AuthForm({
           value={user.username}
           onChange={handleChange}
           required
+          className={styles.input}
         />
         <label htmlFor={`${id}-password`}>Password: </label>
         <input
@@ -35,6 +37,7 @@ function AuthForm({
           value={user.password}
           onChange={handleChange}
           required
+          className={styles.input}
         />
         {title === "Create Account" && (
           <>
@@ -47,6 +50,7 @@ function AuthForm({
               value={user.confirmPassword}
               onChange={handleChange}
               required
+              className={styles.input}
             />
 
             <label htmlFor={`${id}-email`}>Email: </label>
@@ -58,6 +62,7 @@ function AuthForm({
               value={user.email}
               onChange={handleChange}
               required
+              className={styles.input}
             />
 
             <label htmlFor={`${id}-role`}>Role: </label>
@@ -67,6 +72,7 @@ function AuthForm({
               value={user.role}
               onChange={handleChange}
               required
+              className={styles.select}
             >
               <option value="">Select Role</option>
               <option value="employee">Employee</option>
@@ -74,10 +80,12 @@ function AuthForm({
             </select>
           </>
         )}
-        <button type="submit">{buttonText}</button>
+        <button type="submit" className={styles.button}>
+          {buttonText}
+        </button>
       </form>
-      <p>
-        {redirectText} <NavLink to={redirectLink}>Click here</NavLink>
+      <p className={styles.p}>
+        {redirectText} <Link to={redirectLink}>Click here</Link>
       </p>
     </div>
   );

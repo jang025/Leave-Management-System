@@ -1,10 +1,11 @@
 import { useId } from "react";
+import styles from "./CreateLeaveForm.module.css";
 
 const CreateLeaveForm = ({ handleSubmit, handleChange, user }) => {
   // useId hook is used when multiple forms exist on the same page
   const id = useId();
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <label htmlFor={`${id}-leaveType`}>Leave Type: </label>
       <select
         id={`${id}-leaveType`}
@@ -12,6 +13,7 @@ const CreateLeaveForm = ({ handleSubmit, handleChange, user }) => {
         value={user.leaveType}
         onChange={handleChange}
         required
+        className={styles.select}
       >
         <option value="">Select Type</option>
         <option value="annual">Annual</option>
@@ -26,6 +28,7 @@ const CreateLeaveForm = ({ handleSubmit, handleChange, user }) => {
         value={user.startDate}
         onChange={handleChange}
         required
+        className={styles.input}
       />
       <label htmlFor={`${id}-endDate`}>End Date: </label>
       <input
@@ -35,6 +38,7 @@ const CreateLeaveForm = ({ handleSubmit, handleChange, user }) => {
         value={user.endDate}
         onChange={handleChange}
         required
+        className={styles.input}
       />
       <label htmlFor={`${id}-reason`}>End Date: </label>
       <textarea
@@ -44,9 +48,12 @@ const CreateLeaveForm = ({ handleSubmit, handleChange, user }) => {
         placeholder="Enter your reason for leave"
         onChange={handleChange}
         required
+        className={styles.textarea}
       />
 
-      <button type="submit">Submit</button>
+      <button type="submit" className={styles.button}>
+        Submit
+      </button>
     </form>
   );
 };
