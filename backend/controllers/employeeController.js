@@ -201,25 +201,27 @@ const getLeaveBalance = async (req, res) => {
 
     // Count all the approved annual leaves
     const approvedAnnual = await pool.query(
-      `SELECT COUNT(*)   FROM leaves 
+      `SELECT COALESCE(SUM((end_date - start_date) + 1), 0) AS total_days
+       FROM leaves
        WHERE user_id = $1 AND leave_type = 'annual' AND status = 'approved'`,
       [userId]
     );
 
     // Count all the approved sick leaves
     const approvedSick = await pool.query(
-      `SELECT COUNT(*)   FROM leaves 
+      `SELECT COALESCE(SUM((end_date - start_date) + 1), 0) AS total_days
+      FROM leaves
        WHERE user_id = $1 AND leave_type = 'sick' AND status = 'approved'`,
       [userId]
     );
 
     // compute the remaining annual leave
     const annualRemaining =
-      annual_leave_capacity - Number(approvedAnnual.rows[0].count);
+      annual_leave_capacity - Number(approvedAnnual.rows[0].total_days);
 
     // compute the remaining sick leave
     const sickRemaining =
-      sick_leave_capacity - Number(approvedSick.rows[0].count);
+      sick_leave_capacity - Number(approvedSick.rows[0].total_days);
 
     res.status(200).json({
       annual_remaining: annualRemaining,

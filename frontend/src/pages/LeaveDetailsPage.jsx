@@ -48,11 +48,16 @@ const LeaveDetailsPage = () => {
   return (
     <div>
       <h1>Leave Details</h1>
-      <LeaveDetailsCard
-        handleApprove={handleApprove}
-        handleReject={handleReject}
-        leave={leave}
-      />
+      {!leave ? (
+        <p>Loading leave details...</p>
+      ) : (
+        <LeaveDetailsCard
+          handleApprove={handleApprove}
+          handleReject={handleReject}
+          leave={leave}
+        />
+      )}
+
       <button onClick={handleGoBack}>Go Back</button>
     </div>
   );

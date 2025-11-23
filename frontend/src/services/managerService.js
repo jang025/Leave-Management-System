@@ -47,7 +47,7 @@ export const showOne = async (leaveId, token) => {
 
 //! approve leave
 export const approve = async (leaveId, token) => {
-  const url = `${baseUrl}/api/manager/leaves/${leaveId}`;
+  const url = `${baseUrl}/api/manager/leaves/${leaveId}/approve`;
   try {
     const response = await fetch(url, {
       method: "PATCH",
@@ -69,7 +69,7 @@ export const approve = async (leaveId, token) => {
 
 //! reject leave
 export const reject = async (leaveId, token) => {
-  const url = `${baseUrl}/api/manager/leaves/${leaveId}`;
+  const url = `${baseUrl}/api/manager/leaves/${leaveId}/reject`;
   try {
     const response = await fetch(url, {
       method: "PATCH",
