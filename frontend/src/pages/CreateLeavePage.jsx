@@ -24,7 +24,13 @@ const CreateLeavePage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const result = await create(user, token);
+      const payload = {
+        leave_type: user.leaveType,
+        start_date: user.startDate,
+        end_date: user.endDate,
+        reason: user.reason,
+      };
+      const result = await create(payload, token);
       console.log(result);
       navigate(`/employee/${employeeId}`);
     } catch (error) {

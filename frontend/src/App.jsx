@@ -15,7 +15,7 @@ const App = () => {
         <Route path="/employee/:id" element={<EmployeeDashboardPage />} />
         <Route path="/employee/:id/new" element={<CreateLeavePage />} />
         <Route path="/manager/:id" element={<ManagerDashboardPage />} />
-        <Route path="/manager/:id/leaveId" element={<LeaveDetailsPage />} />
+        <Route path="/manager/:id/:leaveId" element={<LeaveDetailsPage />} />
       </Routes>
     </>
   );
