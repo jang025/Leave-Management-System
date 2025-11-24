@@ -49,9 +49,16 @@ npm install
 ```
 
 4. Start the Development Servers
-   Start the backend server:
-   cd backend
-   npm run dev
+
+```
+  cd backend
+  npm run dev
+```
+
+```
+ cd frontend
+ npm run dev
+```
 
 ## 5.4 Attributions (APA Style)
 
